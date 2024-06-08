@@ -60,14 +60,6 @@ jobs:
             len4i/pizza-store:${{steps.release_tag.outputs.new_tag}}
             len4i/pizza-store:latest
 
-      - name: Create Release
-        if: ${{ success() }}
-        uses: ncipollo/release-action@v1.14.0
-        with:
-          artifacts: helm-repo/lightrun-k8s-operator-${{steps.release_tag.outputs.new_tag}}.tgz
-          tag: ${{steps.release_tag.outputs.new_tag}}
-          generateReleaseNotes: true
-
       - name: Pack Helm chart and push
         shell: bash
         env:
@@ -78,4 +70,13 @@ jobs:
             yq -i '.controllerManager.manager.image.tag = "${{steps.release_tag.outputs.new_tag}}"' helm-chart/values.yaml
             helm package ./helm-chart -u 
             helm registry login registry-1.docker.io -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-            helm push pizza-store-${{steps.release_tag.outputs.new_tag}}.tgz oci://registry-1.docker.io/len4i
+            helm push pizza-store-helm-${{steps.release_tag.outputs.new_tag}}.tgz oci://registry-1.docker.io/len4i
+
+      - name: Create Release
+        if: ${{ success() }}
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: pizza-store-helm-${{steps.release_tag.outputs.new_tag}}.tgz
+          tag: ${{steps.release_tag.outputs.new_tag}}
+          generateReleaseNotes: true
+
