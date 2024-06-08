@@ -1,5 +1,5 @@
 ### Github action
-`release` workflow actions:
+[release](.github/workflows/release.yaml) workflow actions:
 - create new tag for the release
 - building image and pushing it to the public dockerhub repo
 - packaging helm chart and pushing it to OCI registry (same dockerhub, different repository)
@@ -13,4 +13,5 @@ Tag of the image and helm chart version are the same
 ### Logger
 Using 2 loggers:
 1. standard slog in json format for the app logs
-2. slog based logger for http requests with middleware that enriches log with http request data 
+2. slog based logger for http requests with middleware that enriches log with http request data
+_http logger servers the only puprose to align loggin format for access logs, so that it can be collected same way as an app logs_
