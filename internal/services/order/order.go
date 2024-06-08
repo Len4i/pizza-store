@@ -64,7 +64,7 @@ func (o *OrderService) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	render.JSON(w, r, id)
+	render.JSON(w, r, map[string]int64{"order_id": id})
 }
 
 func (o *OrderService) Get(w http.ResponseWriter, r *http.Request) {
