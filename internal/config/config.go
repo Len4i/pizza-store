@@ -9,18 +9,17 @@ import (
 )
 
 type Config struct {
-	StoragePath string `yaml:"storage_path" env-required:"true"` //FIXME:
-	HTTPServer  `yaml:"http_server"`
+	StoragePath             string `yaml:"storage_path" env-required:"true"`
+	HTTPServer              `yaml:"http_server"`
 	GracefulShutdownTimeout time.Duration `yaml:"graceful_shutdown_timeout" env-default:"30s"`
-	LogLevel int `yaml:"log_level" env-default:"0"`
+	LogLevel                int           `yaml:"log_level" env-default:"0"`
 }
 
 type HTTPServer struct {
-	Address     string        `yaml:"address" env-default:"localhost:8080"`
-	ReadTimeout     time.Duration `yaml:"read_header_timeout" env-default:"5s"`
-	WriteTimeout	time.Duration `yaml:"write_timeout" env-default:"10s"`
-	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
-
+	Address      string        `yaml:"address" env-default:"localhost:8080"`
+	ReadTimeout  time.Duration `yaml:"read_header_timeout" env-default:"5s"`
+	WriteTimeout time.Duration `yaml:"write_timeout" env-default:"10s"`
+	IdleTimeout  time.Duration `yaml:"idle_timeout" env-default:"60s"`
 }
 
 func MustLoad() *Config {

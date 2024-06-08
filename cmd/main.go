@@ -46,7 +46,7 @@ func main() {
 		os.Exit(1)
 	}
 	// Init services
-	orderService := order.New(storage)
+	orderService := order.New(storage, log)
 
 	r := chi.NewRouter()
 
