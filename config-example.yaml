@@ -1,0 +1,7 @@
+storage_path: /tmp/db.sql
+http_server:
+  address: :8080
+  read_header_timeout: 4s
+  idle_timeout: 60s
+graceful_shutdown_timeout: 30s
+log_level: 0 # 0: info, -4: debuf
