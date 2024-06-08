@@ -1,3 +1,14 @@
+### Github action
+`release` workflow actions:
+- create new tag for the release
+- building image and pushing it to the public dockerhub repo
+- packaging helm chart and pushing it to OCI registry (same dockerhub, different repository)
+
+### Helm chart installation
+helm upgrade <my-release> --install -n pizza-store --create-namespace oci://registry-1.docker.io/len4i/pizza-store-helm --version <chart-version>
+
+
+
 ### Logger
 Using 2 loggers:
 1. standard slog in json format for the app logs
