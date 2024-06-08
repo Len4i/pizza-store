@@ -43,7 +43,6 @@ jobs:
           DEFAULT_BUMP: patch
           VERBOSE: true
           WITH_V: false
-          CUSTOM_TAG: ${{ github.event.inputs.tag }}
 
       - name: Setup Go environment
         uses: actions/setup-go@v5
