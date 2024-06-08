@@ -22,27 +22,15 @@ jobs:
         with:
           fetch-depth: 0
 
-
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.67.0
-        id: release_tag_manual
-        if: github.event_name == 'workflow_dispatch'
+        id: release_tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           VERBOSE: true
           WITH_V: false
-          CUSTOM_TAG: ${{ github.event.inputs.tag }}
-
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.67.0
-        id: release_tag_push
-        if: github.event_name == 'push'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-          VERBOSE: true
-          WITH_V: false
+          CUSTOM_TAG: ${{ github.event.inputs.tag || '' }}
 
       - name: Setup Go environment
         uses: actions/setup-go@v5
