@@ -21,7 +21,7 @@
 >
 ></details>
 
-![release badge](https://github.com/Len4i/pizza-store/actions/workflows/release.yml/badge.svg?event=push)
+![release badge](https://github.com/Len4i/pizza-store/actions/workflows/release.yaml/badge.svg?event=push)
 
 ## Helm chart installation
 ```bash
