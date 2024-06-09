@@ -63,7 +63,11 @@ Few examples:
 - proper handling of http status codes in the `httpLogger`
 
 ### Tests
-- 
+For now there is only a simple [test of storage functions](./internal/storage/sqlite/sqlite_test.go)  
+Things todo:
+- generate mock for interface using [Mockery](https://github.com/vektra/mockery)
+- add tests for `order.go` using mocked interface and `net/http/httptest` package
+- more tests cases around database
 
 ### Infra
 - More work on a Helm chart. _details in the [helm chart](#helm-chart-installation) section_
