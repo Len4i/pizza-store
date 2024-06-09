@@ -47,6 +47,12 @@ func (o *OrderService) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	// TODO: move decoding to separate func and add more validations:
+	// - json syntax errors
+	// - missing required fields
+	// - unknown fields
+	// - invalid values types
+	// - request body size
 
 	// validate values
 	if order.Amount <= 0 {

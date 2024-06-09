@@ -15,7 +15,8 @@ COPY internal/ internal/
 
 
 # Test
-RUN CGO_ENABLED=0  GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o pizza_store cmd/main.go
+RUN go test ./... \
+    && CGO_ENABLED=0  GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o pizza_store cmd/main.go
 
 # Use distroless as minimal base image to package the  bnary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
