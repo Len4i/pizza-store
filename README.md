@@ -1,4 +1,5 @@
 # Pizza store order api
+![release badge](https://github.com/Len4i/pizza-store/actions/workflows/release.yaml/badge.svg?event=push)
 > [!Warning]
 > This is the demo project.
 ><details>
@@ -21,7 +22,7 @@
 >
 ></details>
 
-![release badge](https://github.com/Len4i/pizza-store/actions/workflows/release.yaml/badge.svg?event=push)
+
 
 ## Helm chart installation
 ```bash
