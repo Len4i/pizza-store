@@ -44,13 +44,13 @@ securityContext:
 > Helm chart was created with `helm create` and has minimum changes from the default  
 > In current state volumes and volumeMounts are set in the [values.yaml](./helm-chart/values.yaml)  
 > While chart working with default values, it can be easily broken as require alignment between the values and parts of the template  
-> For example volumeMount path of the db is set in the values but also as part of the configmap. both values should be aligned
+> For example `volumeMount` path of the db is set in the values but also as part of the configmap. both values should be aligned
 
 
 ## Production readiness
 
 ### Code
-There are several things that have to be handled in order to this service be more production ready  
+There are several things that have to be handled in order for this service be more production ready  
 Few examples: 
 - support TLS on the server
 - HA database (more details in the [storage](#storage) section)
@@ -66,7 +66,7 @@ Few examples:
 - 
 
 ### Infra
-- more work on a Helm chart. More details in the [helm chart](#helm-chart-installation) section
+- More work on a Helm chart. _details in the [helm chart](#helm-chart-installation) section_
 - add exmaples for gitops deployment (argocd / flux)
 - build image with docker buildx for multiple architectures including arm
 
@@ -94,7 +94,7 @@ Using 2 loggers:
 _http logger servers the only puprose to align loggin format for access logs, so that it can be collected same way as an app logs_
 
 ### Storage
-Using modernc.org/sqlite
+Using [modernc.org/sqlite](modernc.org/sqlite)   
 _It isn't the most popular implementation, but it is written in pure go, so that there is no need to deal with `cgo` dependencies at the time of the build_  
 SQL lite is not designed for `HA` applications as it is writing to a local file    
 In case of need should be replaces with other `database/sql` compatible driver   
