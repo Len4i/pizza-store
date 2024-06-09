@@ -44,12 +44,17 @@ func New(storagePath string) (*Storage, error) {
 	return &Storage{db: db}, nil
 }
 
+func (s *Storage) Close() error {
+	return s.db.Close()
+}
+
 func (s *Storage) SaveOrder(order Order) (int64, error) {
 
 	stmt, err := s.db.Prepare("INSERT INTO orders(size, amount, pizza_type) VALUES(?, ?, ?)")
 	if err != nil {
 		return 0, err
 	}
+	defer stmt.Close()
 	res, err := stmt.Exec(order.Size, order.Amount, order.PizzaType)
 	if err != nil {
 		return 0, err
@@ -58,7 +63,6 @@ func (s *Storage) SaveOrder(order Order) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-
 	return id, nil
 }
 

@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-
 	"syscall"
 
 	"github.com/Len4i/pizza-store/internal/config"
@@ -28,7 +27,7 @@ func main() {
 		AddSource: true,
 	})
 	log := slog.New(appLogHandler)
-	// httpLog used in middleware for http access logs
+	// httpLog used in middleware for HTTP access logs
 	httpLogHandler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 		Level: logLevel,
 	})
@@ -45,6 +44,8 @@ func main() {
 		log.Error("failed to init storage", "error", err)
 		os.Exit(1)
 	}
+	defer storage.Close()
+
 	// Init services
 	orderService := order.New(storage, log)
 
@@ -93,8 +94,6 @@ func main() {
 		log.Error("failed to stop server", "error", err)
 		return
 	}
-
-	// TODO: close storage connection
 
 	log.Info("server stopped")
 }
