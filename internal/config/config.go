@@ -9,10 +9,20 @@ import (
 )
 
 type Config struct {
-	StoragePath             string `yaml:"storage_path" env-required:"true"`
+	DB                      `yaml:"db"`
 	HTTPServer              `yaml:"http_server"`
-	GracefulShutdownTimeout time.Duration `yaml:"graceful_shutdown_timeout" env-default:"30s"`
 	LogLevel                int           `yaml:"log_level" env-default:"0"`
+	GracefulShutdownTimeout time.Duration `yaml:"graceful_shutdown_timeout" env-default:"30s"`
+}
+
+type DB struct {
+	Host        string `yaml:"host" env-default:"localhost"`
+	Port        int    `yaml:"port" env-default:"3306"`
+	User        string `yaml:"user" env-default:"root"`
+	Password    string `yaml:"password" env-default:""`
+	DBName      string `yaml:"db_name" env-default:"pizza_store"`
+	Type        string `yaml:"type" env-required:"true"`
+	StoragePath string `yaml:"storage_path" env-default:""`
 }
 
 type HTTPServer struct {

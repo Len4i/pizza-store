@@ -1,8 +1,9 @@
-package sqlite
+package storage
 
 import (
 	"testing"
 
+	"github.com/Len4i/pizza-store/internal/storage/sqlite"
 	_ "modernc.org/sqlite"
 )
 
@@ -30,7 +31,11 @@ func TestStorage_SaveOrder(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		storage, err := New(":memory:")
+		db, err := sqlite.New(":memory:")
+		if err != nil {
+			t.Fatalf("Failed to ping db: %v", err)
+		}
+		storage := New(db)
 		if err != nil {
 			t.Fatalf("Failed to create storage: %v", err)
 		}
@@ -80,7 +85,11 @@ func TestStorage_GetOrder(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		storage, err := New(":memory:")
+		db, err := sqlite.New(":memory:")
+		if err != nil {
+			t.Fatalf("Failed to ping db: %v", err)
+		}
+		storage := New(db)
 		if err != nil {
 			t.Fatalf("Failed to create storage: %v", err)
 		}
