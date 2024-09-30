@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Len4i/pizza-store/internal/storage/sqlite"
+	"github.com/Len4i/pizza-store/internal/storage"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 )
 
 type Orderer interface {
-	SaveOrder(order sqlite.Order) (int64, error)
-	GetOrder(id int64) (sqlite.Order, error)
+	SaveOrder(order storage.Order) (int64, error)
+	GetOrder(id int64) (storage.Order, error)
 	// deleteOrder(id int64) error
 }
 
@@ -35,7 +35,7 @@ func (o *OrderService) Create(w http.ResponseWriter, r *http.Request) {
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
 
-	var order sqlite.Order
+	var order storage.Order
 	err := dec.Decode(&order)
 	if err != nil {
 		if errors.Is(err, io.EOF) {

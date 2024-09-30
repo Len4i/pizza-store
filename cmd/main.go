@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"log/slog"
 	"net/http"
@@ -12,6 +13,8 @@ import (
 	"github.com/Len4i/pizza-store/internal/config"
 	mwLogger "github.com/Len4i/pizza-store/internal/middleware/logger"
 	"github.com/Len4i/pizza-store/internal/services/order"
+	"github.com/Len4i/pizza-store/internal/storage"
+	"github.com/Len4i/pizza-store/internal/storage/mysql"
 	"github.com/Len4i/pizza-store/internal/storage/sqlite"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -39,11 +42,20 @@ func main() {
 	log.Debug("debug messages are enabled")
 
 	// Init storage
-	storage, err := sqlite.New(cfg.StoragePath)
+	var db *sql.DB
+	var err error
+	if cfg.DB.Type == "sqlite" {
+		db, err = sqlite.New(cfg.DB.StoragePath)
+	} else if cfg.DB.Type == "mysql" {
+		db, err = mysql.New(cfg.DB.Host, cfg.DB.Port, cfg.DB.User, cfg.DB.Password, cfg.DB.DBName)
+	} else {
+		err = errors.New("unknown storage type")
+	}
 	if err != nil {
 		log.Error("failed to init storage", "error", err)
 		os.Exit(1)
 	}
+	storage := storage.New(db)
 	defer storage.Close()
 
 	// Init services

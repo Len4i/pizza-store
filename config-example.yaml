@@ -1,4 +1,11 @@
-storage_path: /tmp/db.sql
+db:
+  host: localhost
+  port: 3306
+  user: root
+  password: root_password!
+  db_name: pizza_store
+  type: sqlite
+  storage_path: /tmp/sqlit.db
 http_server:
   address: :8080
   read_header_timeout: 4s
